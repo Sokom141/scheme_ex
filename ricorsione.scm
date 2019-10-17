@@ -17,7 +17,7 @@
     (if (> (string-length s) 0)
         (string-append
          (cmp (substring s 0 1))
-         (delega (substring s 1))
+         (compl-1 (substring s 1))
          )
         ""
         )

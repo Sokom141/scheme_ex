@@ -6,9 +6,20 @@
 
 (define b        ; val: reali
     (lambda (k)  ; k: intero non negativo
-      (if (< k 2)
-          (if (= k 0) b0 b1)
-          (/ (b (- k 2)) 2) 
-       )
+      ;(if (< k 2)
+      ;   (if (= k 0) b0 b1)
+      ;   (/ (b (- k 2)) 2) 
+      ;)
+      (cond ((= k 0) b0)
+            ((= k 1) b1)
+            (else (/ (b (- k 2)) 2))
+            )
      )
   )
+
+; (cond  (<cond1> <espr1>)
+;        (<cond2> <espr2>)
+;         ....
+;        (<cond k-1> <espr k-1>)
+;        (else <espr k>)
+; )
