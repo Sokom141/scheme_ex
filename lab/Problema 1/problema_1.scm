@@ -39,6 +39,7 @@
       (check-last-chr s #\i)
     )
   )
+
 (define sf-plurale?
   (lambda (s)
     (check-last-chr s #\e)
@@ -88,7 +89,7 @@
     )
   )
 
-
+; test:
   (frase "gatto" "cacciare" "topi")
   (frase "mucca" "mangiare" "fieno")
   (frase "sorelle" "leggere" "novella")
