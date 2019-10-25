@@ -63,3 +63,9 @@
 (define fin (glue-tiles (shift-right s 2) v))
 |#
 (define croce (glue-tiles (half-turn l) (shift-down (shift-right l 2) 1)))
+(define croce1 (glue-tiles (glue-tiles (shift-down (shift-right s 4)1) croce) (shift-down (half-turn s) 4)))
+(define ret (glue-tiles s (half-turn s)))
+(define 2ret (glue-tiles ret (shift-right ret 2)))
+(define pro (glue-tiles (glue-tiles croce1 (shift-down ret 5)) (shift-down (shift-right ret 2) 5)))
+(define last  (glue-tiles (shift-right 2ret 2) (glue-tiles croce1 (shift-down 2ret 5))))
+;(define trg (glue-tiles))
