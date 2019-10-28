@@ -8,7 +8,7 @@
         (if (char=? p #\.)
             (- len-s 1)
             (cond ((> len-s 1) (find-point (substring s 0 (- len-s 1)) ))
-                  (else "")
+                  (else (+ len-s 1))
                   )
             )
         )
@@ -41,6 +41,8 @@
     )
   )
 
+;----------------------------------------------------------------------------------------;
+
 ; TODO:
 (define n-intero
   (lambda (si)
@@ -59,12 +61,35 @@
   )
 
 (define n-decimale
-  (lambda 
+  (lambda (sd)
+    (let ( (len-s (string-length sd)) )
+      (let ( (lb (if (> len-s 0) (string->number (substring sd (- len-s 1))) 0)) )
+        (if (= lb 1)
+            (+ (expt 2 (- len-s)) (n-decimale (substring sd 0 (- len-s 1))))
+            (if (= lb 0)
+                (+ (if (> len-s 0) (n-decimale (substring sd 0 (- len-s 1))) 0))
+                0
+                )
+            )
+        )
+      )
+    )
   )
+
+;-----------------------------------------------------------------------------------;
 
 ; TODO:
 (define bin-rep->number
   (lambda (sn)
-    (n-intero (parte-intera sn))
+    (if (string=? sn "0")
+        0
+        (+ (n-intero (parte-intera sn)) (n-decimale (parte-decimale sn)))
+        )
     )
   )
+
+
+;(bin-rep->number "1101")
+;(bin-rep->number "0")
+;(bin-rep->number "10110.011")
+;(bin-rep->number "-0.1101001")
