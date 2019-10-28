@@ -29,25 +29,42 @@
   )
 ;------------------------------------------------------------------------------------------------;
 
+(define parte-intera
+  (lambda (s)
+    (substring s 0 (find-point s))
+    )
+  )
+
+(define parte-decimale
+  (lambda (s)
+    (substring s (+ (find-point s) 1))
+    )
+  )
+
 ; TODO:
 (define n-intero
   (lambda (si)
-    (let ( (l (string-ref si (- (string-length si) 1))) )
-      (string-append "" (number->string
-                         (+
-                          (if (char=? l #\1)
-                              (expt 2 0)
-                              (+ 0 0)
-                              )
-                          )
-                         ))
+    (let ( (len-s (string-length si)) )
+      (let ( (fb (if (> len-s 0) (string->number (substring si 0 1)) 0)) ) ;fb: first bit
+        (if (=  fb 1)
+            (+ (expt 2 (- len-s 1)) (n-intero (substring si 1 len-s)))
+            (if (= fb 0)
+                (+  (if (> len-s 0)(n-intero (substring si 1 len-s ) ) 0))
+                0
+                )
+            )
+        )
       )
     )
+  )
+
+(define n-decimale
+  (lambda 
   )
 
 ; TODO:
 (define bin-rep->number
   (lambda (sn)
-    (display "todo")
+    (n-intero (parte-intera sn))
     )
   )
