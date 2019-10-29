@@ -8,7 +8,7 @@
         (if (char=? p #\.)
             (- len-s 1)
             (cond ((> len-s 1) (find-point (substring s 0 (- len-s 1)) ))
-                  (else (+ len-s 1))
+                  (else -1) ;(+ len-s 1))
                   )
             )
         )
@@ -31,24 +31,26 @@
 
 (define parte-intera
   (lambda (s)
-    (if (string=? s "1")
-        "1"
-        (substring s 0 (find-point s))
-        ) ;nel caso in cui non ci sia il punto len+1
-    )
-)
-
-(define parte-decimale
-  (lambda (s)
-    (if (< (find-point s) (string-length s) )
-        (substring s (+ (find-point s) 1))
-        ""
+    (if (= (find-point s) -1)
+        s
+        (if (string=? s "1")
+            "1"
+            (substring s 0 (find-point s))
+            ) ;nel caso in cui non ci sia il punto len+1
         )
     )
   )
 
-
-
+(define parte-decimale
+  (lambda (s)
+    (if (< (find-point s) (string-length s) )
+        (if (= (find-point s) -1)
+            ""
+            (substring s (+ (find-point s) 1)))
+        ""
+        )
+    )
+  )
 
 ;-----------------------------------------------------------------------------------------------;
 
@@ -95,13 +97,29 @@
   (lambda (sn)
     (if (string=? sn "0")
         0
-        (+ (n-intero (parte-intera sn)) (n-decimale (parte-decimale sn)))
+        (let ( (no-sym (substring sn 1) ) )
+          (cond ((string=? (symbol sn) "+")
+                 (+ (n-intero (parte-intera no-sym)) (n-decimale (parte-decimale sn) )))
+                ((string=? (symbol sn) "-")
+                 (- (n-intero (parte-intera no-sym)) (n-decimale (parte-decimale sn))))
+                (else (+ (n-intero (parte-intera sn)) (n-decimale (parte-decimale sn))))
+                )
+          )
         )
     )
   )
 
+#|
+(if (string=? sn "0")
+                      0
+                      (+ (n-intero (parte-intera sn)) (n-decimale (parte-decimale sn)))
+                      ) )
+(+ (n-intero (parte-intera sn)) (n-decimale (parte-decimale sn)))
 
-;(bin-rep->number "1101")
-;(bin-rep->number "0")
-;(bin-rep->number "10110.011")
-;(bin-rep->number "-0.1101001")
+|#
+
+  
+(bin-rep->number "+1101")
+(bin-rep->number "0")
+(bin-rep->number "10110.011")
+(bin-rep->number "-0.1101001")
