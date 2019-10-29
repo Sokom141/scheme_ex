@@ -31,24 +31,33 @@
 
 (define parte-intera
   (lambda (s)
-    (substring s 0 (find-point s))
+    (if (string=? s "1")
+        "1"
+        (substring s 0 (find-point s))
+        ) ;nel caso in cui non ci sia il punto len+1
     )
-  )
+)
 
 (define parte-decimale
   (lambda (s)
-    (substring s (+ (find-point s) 1))
+    (if (< (find-point s) (string-length s) )
+        (substring s (+ (find-point s) 1))
+        ""
+        )
     )
   )
 
-;----------------------------------------------------------------------------------------;
+
+
+
+;-----------------------------------------------------------------------------------------------;
 
 ; TODO:
 (define n-intero
   (lambda (si)
     (let ( (len-s (string-length si)) )
       (let ( (fb (if (> len-s 0) (string->number (substring si 0 1)) 0)) ) ;fb: first bit
-        (if (=  fb 1)
+        (if (= fb 1)
             (+ (expt 2 (- len-s 1)) (n-intero (substring si 1 len-s)))
             (if (= fb 0)
                 (+  (if (> len-s 0)(n-intero (substring si 1 len-s ) ) 0))
@@ -62,21 +71,24 @@
 
 (define n-decimale
   (lambda (sd)
-    (let ( (len-s (string-length sd)) )
-      (let ( (lb (if (> len-s 0) (string->number (substring sd (- len-s 1))) 0)) )
-        (if (= lb 1)
-            (+ (expt 2 (- len-s)) (n-decimale (substring sd 0 (- len-s 1))))
-            (if (= lb 0)
-                (+ (if (> len-s 0) (n-decimale (substring sd 0 (- len-s 1))) 0))
-                0
+    (if (string=? sd "")
+        0
+        (let ( (len-s (string-length sd)) )
+          (let ( (lb (if (> len-s 0) (string->number (substring sd (- len-s 1))) 0)) )
+            (if (= lb 1)
+                (+ (expt 2 (- len-s)) (n-decimale (substring sd 0 (- len-s 1))))
+                (if (= lb 0)
+                    (+ (if (> len-s 0) (n-decimale (substring sd 0 (- len-s 1))) 0))
+                    0
+                    )
                 )
             )
+          )
         )
-      )
     )
   )
 
-;-----------------------------------------------------------------------------------;
+;---------------------------------------------------------------------------------------------;
 
 ; TODO:
 (define bin-rep->number
