@@ -92,7 +92,6 @@
 
 ;---------------------------------------------------------------------------------------------;
 
-; TODO:
 (define bin-rep->number
   (lambda (sn)
     (if (string=? sn "0")
@@ -118,8 +117,8 @@
 
 |#
 
-  
-(bin-rep->number "+1101")
-(bin-rep->number "0")
-(bin-rep->number "10110.011")
-(bin-rep->number "-0.1101001")
+; Test:  
+(bin-rep->number "+1101")           ; -> 13
+(bin-rep->number "0")               ; -> 0
+(bin-rep->number "10110.011")       ; -> 22.375
+(bin-rep->number "-0.1101001")      ; -> -0.8203125
