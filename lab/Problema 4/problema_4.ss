@@ -11,7 +11,6 @@
     )
   )
 
-
 ;data una rappresentazione BTR (stringa), restituisce la parte che precede l’ultimacifra (stringa)
 ; oppure la stringa vuota ("") se l’argomento è la stringa vuota
 (define head
@@ -34,19 +33,14 @@
     )
   )
 
-;date due cifre BTR “incolonnate” e il relativo riporto BTR in entrata (caratteri),
-;restituisce il riporto BTR in uscita (carattere) conseguente alla somma delle cifre
-;MODELLO: btr-digit-sum
-(define btr-carry 
-  (lambda ()
-    #f)
-  )
-
 ;date le rappresentazioni BTR di due interi (stringhe) e il riporto in entrata (carattere),
 ;restituisce la rappresentazione BTR della somma inclusiva del riporto
 (define btr-carry-sum
-  (lambda ()
-    #f)
+  (lambda (btr-1 btr-2 riporto)
+    (if ()
+        ()
+        ())
+    )
   )
 
 (define btr-digit-sum                    ; val:     carattere +/./-
@@ -102,4 +96,62 @@
                          #\-)
                         ((char=? c #\+)  ; + + +
                          #\.)))))
+          )))
+
+;date due cifre BTR “incolonnate” e il relativo riporto BTR in entrata (caratteri),
+;restituisce il riporto BTR in uscita (carattere) conseguente alla somma delle cifre
+;MODELLO: btr-digit-sum
+(define btr-carry                        ; val:     carattere +/./-
+  (lambda (u v c)                        ; u, v, c: caratteri +/./-
+    (cond ((char=? u #\-)                ; u v c
+           (cond ((char=? v #\-)
+                  (cond ((char=? c #\-)  ; - - -
+                         #\-) ;
+                        ((char=? c #\.)  ; - - .
+                         #\-) ;
+                        ((char=? c #\+)  ; - - +
+                         #\.))) ;
+                 ((char=? v #\.)
+                  (cond ((char=? c #\-)  ; - . -
+                         #\-) ;
+                        ((char=? c #\.)  ; - . .
+                         #\.) ;
+                        ((char=? c #\+)  ; - . +
+                         #\.)))
+                 ((char=? v #\+)         ; - + c
+                  #\.))) ;
+          ((char=? u #\.)
+           (cond ((char=? v #\-)
+                  (cond ((char=? c #\-)  ; . - -
+                         #\-) ;
+                        ((char=? c #\.)  ; . - .
+                         #\.) ;
+                        ((char=? c #\+)  ; . - +
+                         #\.))) ;
+                 ((char=? v #\.)         ; . . c
+                  #\.) ;
+                 ((char=? v #\+)
+                  (cond ((char=? c #\-)  ; . + -
+                         #\.) ;
+                        ((char=? c #\.)  ; . + .
+                         #\.) ;
+                        ((char=? c #\+)  ; . + +
+                         #\+))))) ;
+          ((char=? u #\+)
+           (cond ((char=? v #\-)         ; + - c
+                  #\.)
+                 ((char=? v #\.)
+                  (cond ((char=? c #\-)  ; + . -
+                         #\.) ;
+                        ((char=? c #\.)  ; + . .
+                         #\.) ;
+                        ((char=? c #\+)  ; + . +
+                         #\+))) ;
+                 ((char=? v #\+)
+                  (cond ((char=? c #\-)  ; + + -
+                         #\-) ;
+                        ((char=? c #\.)  ; + + .
+                         #\+) ;
+                        ((char=? c #\+)  ; + + +
+                         #\+))))) ;
           )))
