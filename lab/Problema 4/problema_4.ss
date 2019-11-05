@@ -37,9 +37,7 @@
 ;restituisce la rappresentazione BTR della somma inclusiva del riporto
 (define btr-carry-sum
   (lambda (btr-1 btr-2 riporto)
-    (if ()
-        ()
-        ())
+    (string-append (string (btr-carry (lsd btr-1) (lsd btr-2) riporto)) (string (btr-digit-sum (lsd btr-1) (lsd btr-2) riporto)))
     )
   )
 
