@@ -38,7 +38,9 @@
 (define btr-carry-sum
   (lambda (btr-1 btr-2 riporto)
     (if (= (string-length btr-1) 1)
-        (string-append (string (btr-carry (lsd btr-1) (lsd btr-2) riporto)) (string (btr-digit-sum (lsd btr-1) (lsd btr-2) riporto)))
+        (string-append
+         (string (btr-carry (lsd btr-1) (lsd btr-2) riporto))
+         (string (btr-digit-sum (lsd btr-1) (lsd btr-2) riporto)))
         0 ; TODO
         )
     )
