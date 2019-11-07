@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-advanced-reader.ss" "lang")((modname problema_4) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname problema_4) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 ;data una rappresentazione BTR (stringa), restituisce la cifra meno significativa(carattere) 
 ;oppure zero (#\.) se l’argomento è la stringa vuota
 (define lsd
@@ -11,7 +11,7 @@
     )
   )
 
-;data una rappresentazione BTR (stringa), restituisce la parte che precede l’ultimacifra (stringa)
+;data una rappresentazione BTR (stringa), restituisce la parte che precede l’ultima cifra (stringa)
 ; oppure la stringa vuota ("") se l’argomento è la stringa vuota
 (define head
   (lambda (btr-s)
@@ -37,7 +37,10 @@
 ;restituisce la rappresentazione BTR della somma inclusiva del riporto
 (define btr-carry-sum
   (lambda (btr-1 btr-2 riporto)
-    (string-append (string (btr-carry (lsd btr-1) (lsd btr-2) riporto)) (string (btr-digit-sum (lsd btr-1) (lsd btr-2) riporto)))
+    (if (= (string-length btr-1) 1)
+        (string-append (string (btr-carry (lsd btr-1) (lsd btr-2) riporto)) (string (btr-digit-sum (lsd btr-1) (lsd btr-2) riporto)))
+        0 ; TODO
+        )
     )
   )
 
@@ -153,3 +156,13 @@
                         ((char=? c #\+)  ; + + +
                          #\+))))) ;
           )))
+#|
+(define btr-sum
+  (lambda (btr-1 btr-2)
+    (if ()
+        ()
+        ()
+        )
+    )
+  )
+|#

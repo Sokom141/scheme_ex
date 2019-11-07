@@ -1,7 +1,7 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-advanced-reader.ss" "lang")((modname problema_3) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
-(define find-point   ; val: indeice in cui si trova il punto nella stringa
+#reader(lib "htdp-advanced-reader.ss" "lang")((modname problema_3) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
+(define find-point   ; val: indice in cui si trova il punto nella stringa
   (lambda (s)        ;   s: stringa non vuota
     (let ( (len-s (string-length s)) )
       (let ( (p (string-ref s (- len-s 1)) ) )
@@ -29,8 +29,8 @@
   )
 ;------------------------------------------------------------------------------------------------;
 
-(define parte-intera
-  (lambda (s)
+(define parte-intera   ; val: stringa parte intera
+  (lambda (s)          ;   s: stringa non vuota
     (if (= (find-point s) -1)
         s
         (if (string=? s "1")
@@ -41,8 +41,8 @@
     )
   )
 
-(define parte-decimale
-  (lambda (s)
+(define parte-decimale  ; val: stringa parte decimale, vuota se la stringa in entrata non contiene parte decimale
+  (lambda (s)           ;   s: stringa non vuota
     (if (< (find-point s) (string-length s) )
         (if (= (find-point s) -1)
             ""
@@ -55,8 +55,8 @@
 ;-----------------------------------------------------------------------------------------------;
 
 ; TODO:
-(define n-intero
-  (lambda (si)
+(define n-intero   ; val: binario intero
+  (lambda (si)     ;  si: stringa non vuota
     (let ( (len-s (string-length si)) )
       (let ( (fb (if (> len-s 0) (string->number (substring si 0 1)) 0)) ) ;fb: first bit
         (if (= fb 1)
@@ -71,8 +71,8 @@
     )
   )
 
-(define n-decimale
-  (lambda (sd)
+(define n-decimale  ; val: binario decimale
+  (lambda (sd)      ;  sd: stringa 
     (if (string=? sd "")
         0
         (let ( (len-s (string-length sd)) )
@@ -92,8 +92,8 @@
 
 ;---------------------------------------------------------------------------------------------;
 
-(define bin-rep->number
-  (lambda (sn)
+(define bin-rep->number  ; val: numero in base binaria
+  (lambda (sn)           ;  sn: stringa contenente almeno un numero
     (if (string=? sn "0")
         0
         (let ( (no-sym (substring sn 1) ) )
