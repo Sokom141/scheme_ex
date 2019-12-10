@@ -46,7 +46,7 @@ mul 40 3
 (define power-rec
   (lambda (m n p)
     (cond ((= n 0) p)
-          (+ 0 0 ; TODO)
+          (else (+ 0 0) ; TODO)
           )
     )
-  )
+  ))
