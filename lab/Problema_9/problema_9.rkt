@@ -6,8 +6,8 @@
 
 (define traslate
   (lambda (alphabet)
-    (lambda (n)
-      (string-append (substring alphabet n) (substring alphabet 0 n))
+    (lambda (key)
+      (string-append (substring alphabet key) (substring alphabet 0 key))
       )
     )
   )
@@ -15,10 +15,10 @@
 (define get_alphabet (traslate latin))
 
 (define position
-  (lambda (l alph)
-    (if (string=? l (substring alph 0 1))
+  (lambda (char alph)
+    (if (string=? char (substring alph 0 1))
         0
-        (+ 1 (position l (substring alph 1)) )
+        (+ 1 (position char (substring alph 1)) )
         )
     )
   )
@@ -30,13 +30,13 @@
   )
 
 (define crypt
-  (lambda (in n)
-    (cond ((string=? in "") "")
-          ((string=? (substring in 0 1) " ") (crypt (substring in 1) n))
-          (else (string-append (match (substring in 0 1) (get_alphabet n)) (crypt (substring in 1) n)))
+  (lambda (input key)
+    (cond ((string=? input "") "")
+          ((string=? (substring input 0 1) " ") (crypt (substring input 1) key))
+          (else (string-append (match (substring input 0 1) (get_alphabet key)) (crypt (substring input 1) key)))
           )
     )
   )
 
-
 ; Parte 2
+
