@@ -40,3 +40,24 @@
 
 ; Parte 2
 
+(define s2
+  (lambda (n)
+    (+ n 1)
+    )
+  )
+
+(define add
+  (H (lambda (i) i) s2)
+  )
+
+(define mul
+  (H (lambda (z) 0) add)
+  )
+
+(define pow
+  (H (lambda (u) 1) mul)
+  )
+
+(define H
+  ()
+  )
