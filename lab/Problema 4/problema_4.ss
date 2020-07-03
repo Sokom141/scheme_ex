@@ -3,8 +3,8 @@
 #reader(lib "htdp-advanced-reader.ss" "lang")((modname problema_4) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #t #t none #f () #f)))
 ;data una rappresentazione BTR (stringa), restituisce la cifra meno significativa(carattere) 
 ;oppure zero (#\.) se l’argomento è la stringa vuota
-(define lsd
-  (lambda (btr-s) 
+(define lsd        ;   val: carattere
+  (lambda (btr-s)  ; btr-s: stringa btr
     (if (string=? btr-s "")
         #\.
         (string-ref btr-s (- (string-length btr-s) 1)))
@@ -12,9 +12,9 @@
   )
 
 ;data una rappresentazione BTR (stringa), restituisce la parte che precede l’ultima cifra (stringa)
-; oppure la stringa vuota ("") se l’argomento è la stringa vuota
-(define head
-  (lambda (btr-s)
+;oppure la stringa vuota ("") se l’argomento è la stringa vuota
+(define head      ;   val: stringa
+  (lambda (btr-s) ; btr-s: stringa btr
     (if (string=? btr-s "")
         #\.
         (substring btr-s 0 (- (string-length btr-s) 1)))
@@ -46,6 +46,8 @@
     )
   )
 
+;date due cifre BTR "incolonnate" e il relativo riporto BTR in entrata (caratteri),
+;restituisce la cifra BTR corrispondente (carattere) della rappresentazione della somma
 (define btr-digit-sum                    ; val:     carattere +/./-
   (lambda (u v c)                        ; u, v, c: caratteri +/./-
     (cond ((char=? u #\-)                ; u v c
@@ -158,13 +160,27 @@
                         ((char=? c #\+)  ; + + +
                          #\+))))) ;
           )))
-#|
+
+
 (define btr-sum
   (lambda (btr-1 btr-2)
-    (if ()
-        ()
-        ()
-        )
+    (btr-sum-rec btr-1 btr-2 #\. "" "")
     )
   )
-|#
+
+(define btr-sum-rec
+  (lambda (b1 b2 c res last)
+    (let ( (b1l (string-length b1) ) (b2l (string-length b2) ) )
+      (if (or (= b1l 0) (= b2l 0))
+          (string-append last res)
+          (btr-sum-rec
+           (substring b1 0 (- b1l 1)) (substring b2 0 (- b2l 1))
+           (btr-carry (string-ref b1 (- b1l 1)) (string-ref b2 (- b2l 1) ) c)
+           (string-append (string (btr-digit-sum (string-ref b1 (- b1l 1)) (string-ref b2 (- b2l 1) ) c)) res)
+           (string (btr-carry (string-ref b1 (- b1l 1)) (string-ref b2 (- b2l 1) ) c) )
+           )
+          )
+      )
+    )
+  )
+

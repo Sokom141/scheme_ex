@@ -40,8 +40,20 @@
 
 ; Parte 2
 
+
+(define H
+  (lambda (f g)
+    (lambda (m n)
+      (if (= n 0)
+          (f m)
+          (g m ((H f g) m (- n 1)))
+          )
+      )
+    )
+  )
+
 (define s2
-  (lambda (n)
+  (lambda (m n)
     (+ n 1)
     )
   )
@@ -56,8 +68,4 @@
 
 (define pow
   (H (lambda (u) 1) mul)
-  )
-
-(define H
-  ()
   )
