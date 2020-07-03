@@ -1,6 +1,3 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-advanced-reader.ss" "lang")((modname puzzle) (read-case-sensitive #t) (teachpacks ((lib "drawings.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "drawings.ss" "installed-teachpacks")) #f)))
 
 ;; Square-Cross Puzzle
 ;; Claudio Mirolo, 6/11/2014
@@ -51,21 +48,3 @@
 
 (set-puzzle-shift-step!)
 
-
-(define l larger-tile)
-(define s smaller-tile)
-#|
-(define f (glue-tiles l (shift-down (shift-right (half-turn l) 2) 1) ))
-(define r (glue-tiles (shift-right s 2) f))
-
-(define v (glue-tiles f (shift-down(shift-right (half-turn s) 2) 5)))
-
-(define fin (glue-tiles (shift-right s 2) v))
-|#
-(define croce (glue-tiles (half-turn l) (shift-down (shift-right l 2) 1)))
-(define croce1 (glue-tiles (glue-tiles (shift-down (shift-right s 4)1) croce) (shift-down (half-turn s) 4)))
-(define ret (glue-tiles s (half-turn s)))
-(define 2ret (glue-tiles ret (shift-right ret 2)))
-(define pro (glue-tiles (glue-tiles croce1 (shift-down ret 5)) (shift-down (shift-right ret 2) 5)))
-(define last  (glue-tiles (shift-right 2ret 2) (glue-tiles croce1 (shift-down 2ret 5))))
-;(define trg (glue-tiles))

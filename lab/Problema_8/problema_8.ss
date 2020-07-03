@@ -33,19 +33,36 @@
                (if (= (cadar ls) 1)
                    (hanoi-disk-rec (cdr ls) n (- k 1) (+ s 1) (- d 1) t)
                    (hanoi-disk-rec (cdr ls) n (- k 1) s (- d 1) (+ t 1))
-               ))
+                   ))
               (else
                (if (= (cadar ls) 1)
                    (hanoi-disk-rec (cdr ls) n (- k 1) (+ s 1) d (- t 1))
                    (hanoi-disk-rec (cdr ls) n (- k 1) s (+ d 1) (- t 1))
-                    )
+                   )
+               )
               )
         )
-    )
-  ))
+    ))
 
 (define hanoi-disks
   (lambda (n k)
     (hanoi-disk-rec (hanoi-moves n) n k n 0 0)
+    )
+  )
+
+(define hanoi-picture
+  (lambda (n k)
+    (hanoi-picture-rec 1 n 1 0 k)
+    )
+  )
+
+(define hanoi-picture-rec
+  (lambda (d n p t count)
+    ( let ((bg (towers-background n) ))
+       (if (= count 0)
+           (disk-image )
+           (above (disk-image) bg))
+           
+       )
     )
   )

@@ -17,3 +17,16 @@
     )
   )
 
+(define quadrato
+  (lambda (st lt)
+    (let ((1t (half-turn lt) ))
+      (let ((bt (shift-down (shift-right lt 2) 1) ))
+        (glue-tiles (glue-tiles (glue-tiles bt 1t) (shift-right (half-turn st) 2)) (shift-down (shift-right st 2) 5))
+        ) 
+      )
+    )
+  )
+
+
+(croce s l)
+(quadrato s l)

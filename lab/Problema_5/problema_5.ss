@@ -1,6 +1,7 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname problema_5) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+; Manhattan in due dimensioni
 (define manhattan
   (lambda (i j)
     (if (or (= i 0) (= j 0))
@@ -10,6 +11,7 @@
     )
   )
 
+; Manhattan in tre dimensioni
 (define manhattan-3d  ; val: numero di percorsi diversi di lunghezza minima
   (lambda (i j k)     ; interi non negativi. i: numero di piani, j: numero di stanze est-ovest, k: numero distanze nord-sud
     (if (or (and (= i 0) (= j 0) (= k 0)) (and (= i 0) (= j 0)) (and (= i 0) (= k 0)) (and (= j 0) (= k 0)))
