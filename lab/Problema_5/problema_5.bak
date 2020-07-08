@@ -2,8 +2,8 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname problema_5) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ; Manhattan in due dimensioni
-(define manhattan ; val: numero di percorsi diversi 
-  (lambda (i j)   ; interi non negativi
+(define manhattan
+  (lambda (i j)
     (if (or (= i 0) (= j 0))
         1
         (+ (manhattan (- i 1) j) (manhattan i (- j 1)))
@@ -24,12 +24,3 @@
         )
     )
   )
-
-; Test:
-
-(manhattan-3d 0 0 7) ; -> 1
-(manhattan-3d 2 0 2) ; -> 6
-(manhattan-3d 1 1 1) ; -> 6
-(manhattan-3d 1 1 5) ; -> 42
-(manhattan-3d 2 3 1) ; -> 60
-(manhattan-3d 2 3 3) ; -> 560

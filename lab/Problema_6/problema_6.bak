@@ -59,8 +59,7 @@
 ;; Traslazione unitaria da utilizzare per la tassellazione
 ;; (lato piu' corto del tassello a forma di L)
 
-(set-tessellation-shift-step!) ; Istruzione obbligatoria
-
+(set-tessellation-shift-step!)
 (define L L-tile)
 
 (define L-tessellation

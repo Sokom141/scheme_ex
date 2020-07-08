@@ -2,9 +2,9 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname problema_9) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ; Parte 1
-(define latin "ABCDEFGHILMNOPQRSTVX")
+(define latin "ABCDEFGHILMNOPQRSTVX") ; costante alfabeto latino
 
-(define traslate
+(define traslate  ; val: alfabeto traslato in base alla chiave
   (lambda (alphabet)
     (lambda (key)
       (string-append (substring alphabet key) (substring alphabet 0 key))
@@ -14,8 +14,8 @@
 
 (define get_alphabet (traslate latin))
 
-(define position
-  (lambda (char alph)
+(define position  ; val: indice carattere
+  (lambda (char alph) ; char, alph: stringa
     (if (string=? char (substring alph 0 1))
         0
         (+ 1 (position char (substring alph 1)) )
@@ -23,14 +23,14 @@
     )
   )
 
-(define match
-  (lambda (letter alph)
+(define match  ; val: stringa carattere traslato
+  (lambda (letter alph) ;letter,alph: stringhe
     (string (string-ref alph (position letter latin)))
     )
   )
 
-(define crypt
-  (lambda (input key)
+(define crypt  ; val: stringa criptata
+  (lambda (input key) ; input: stringa da criptare, key: chiave di criptazione
     (cond ((string=? input "") "")
           ((string=? (substring input 0 1) " ") (crypt (substring input 1) key))
           (else (string-append (match (substring input 0 1) (get_alphabet key)) (crypt (substring input 1) key)))
@@ -38,8 +38,11 @@
     )
   )
 
-; Parte 2
+; Test:
 
+(crypt "ALEA IACTA EST IVLIVS CAESAR DIXIT" 3) ; -> DOHD NDFAD HXA NBONBX FDHXDV GNCNA
+
+; Parte 2
 
 (define H
   (lambda (f g)
@@ -69,3 +72,9 @@
 (define pow
   (H (lambda (u) 1) mul)
   )
+
+; Test:
+
+(add 5 10) ; -> 15
+(mul 9 9)  ; -> 81
+(pow 3 3)  ; -> 27

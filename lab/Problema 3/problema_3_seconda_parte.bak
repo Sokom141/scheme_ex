@@ -157,8 +157,8 @@
     )
   )
 
-(define n-decimale-all ; val: decimale in base 10
-  (lambda (sd b)       ; sd: stringa parte decimale, b: base
+(define n-decimale-all
+  (lambda (sd b)
     (let ( (len-s (string-length sd)) )
       (if (= len-s 0)
           0
@@ -171,9 +171,8 @@
     )
   )
 
-; Procedura utente
-(define rep->number   ; val: numero in base 10 
-  (lambda (base num)  ; base: definizione completa base, num: numero da convertire
+(define rep->number
+  (lambda (base num)
     (if (string=? num "0")
         0
         (let ( (no-sym (substring num 1) ) )
@@ -191,7 +190,6 @@
   )
 
 ; Test:
-
 (rep->number "zu" "-uuzz" )              ;-> -12
 (rep->number "0123" "+21.1")             ;-> 9.25
 (rep->number "01234" "-10.02")           ;-> -5.08

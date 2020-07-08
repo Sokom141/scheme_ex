@@ -23,8 +23,8 @@
 
 ;data una rappresentazione BTR (stringa), restituisce la rappresentazione non vuota
 ;equivalente in cui le eventuali cifre zero (#\.) in testa, ininfluenti, sono rimosse
-(define normalized-btr ; val: btr normalizzato (vengono rimossi gli 0 di testa)
-  (lambda (btr-s)      ; btr-s: una stringa btr
+(define normalized-btr
+  (lambda (btr-s)
     (let ( (fb (substring btr-s 0 1)) )
       (cond ((= 1 (string-length btr-s)) btr-s)
             ((string=? fb ".")
@@ -36,8 +36,8 @@
 
 ;date le rappresentazioni BTR di due interi (stringhe) e il riporto in entrata (carattere),
 ;restituisce la rappresentazione BTR della somma inclusiva del riporto
-(define btr-carry-sum           ; val: stringa
-  (lambda (btr-1 btr-2 riporto) ; btr1/2: stringhe, riporto: char
+(define btr-carry-sum
+  (lambda (btr-1 btr-2 riporto)
     (let ( (lsd1 (lsd btr-1)) (lsd2 (lsd btr-2)) )
       (let ( (sum (btr-digit-sum lsd1 lsd2 riporto) ) (carry (btr-carry lsd1 lsd2 riporto)) )
         (if (and (= (string-length btr-2) 0) (char=? carry #\.))
@@ -164,14 +164,12 @@
                          #\+))))) ;
           )))
 
-; Procedura utente
-(define btr-sum  ; val: btr sommato
-  (lambda (btr-1 btr-2) ; btr1/2: stringhe btr
+(define btr-sum
+  (lambda (btr-1 btr-2)
     (normalized-btr (btr-carry-sum btr-1 btr-2 #\.))
     )
   )
 
-; Test:
 
 (btr-sum "-+--" "+") ; => -+-.
 (btr-sum "-+--" "-") ; => -.++

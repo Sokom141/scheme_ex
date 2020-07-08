@@ -4,6 +4,13 @@
 ; Autore: Mattia Pizzolitto
 ; Data:   21/10/2019
 
+; stringa vuota
+(define nothing         ; val: stringa
+  (lambda (s)           ; s:   stringa
+    (substring s 0)
+    )
+  )
+
 ; confronta gli ultimi due caratteri per sapere se sono uguali
 (define check-last-chr  ; val: True o False
   (lambda (s chr)       ; s:   sostantivo   chr: #\carattere
@@ -45,20 +52,20 @@
     )
   )
 
-; Se il verbo è al plurale aggiunge la desinenza
-(define v-plurale?      ; val:  stringa
-  (lambda (s des)       ; s, des: stringhe
+; Il verbo è al plurale?
+(define v-plurale?      ; val: 
+  (lambda (v s des)     ; v, s, des: 
     (cond
-      ((sm-plurale? s) des)
-      ((sf-plurale? s) des)
+      ((sm-plurale? s)(nothing des))
+      ((sf-plurale? s)(nothing des))
       (else "")
       )
     )
   )
 
-
-(define v-plurale-n?   ;  val: intero
-  (lambda (s n)        ; s, n: stringa, intero
+; todo
+(define v-plurale-n?   ;  val:
+  (lambda (s n)        ; s, n:
     (cond
       ((sm-plurale? s)(+ n 0))
       ((sf-plurale? s)(+ n 0))
@@ -68,15 +75,15 @@
   )
 
 ; compone la stringa 
-(define componi              ;                val: stringa
-  (lambda (v s des n is_1)   ; v, s, des: stringhe | n: intero positivo | is_1: boolean
-    (string-append (substring v 0 (- (string-length v) (if (not is_1) (v-plurale-n? s n) n))) (v-plurale? s des))
+(define componi              ;                val:
+  (lambda (v s des n is_1)   ; v, s, des, n, is_1:
+    (string-append (substring v 0 (- (string-length v) (if (not is_1) (v-plurale-n? s n) (+ n 0)))) (v-plurale? v s des))
     )
   )
 
 ; Declina il verbo
-(define declina             ;         val: stringa
-  (lambda (verbo sogg)      ; verbo, sogg: stringhe
+(define declina             ;         val:
+  (lambda (verbo sogg)      ; verbo, sogg:
     (cond
       ((string=? (get-desinenza verbo) "are")(componi verbo sogg "no" 2 #t))
       ((string=? (get-desinenza verbo) "ere")(componi verbo sogg "ono" 3 #f))
@@ -87,20 +94,8 @@
  )
 
 ; Costruisce la frase corretta
-(define frase                   ;              val: stringa
-  (lambda (sogg verbo ogg)      ; sogg, verbo, ogg: stringhe
+(define frase                   ;              val:
+  (lambda (sogg verbo ogg)      ; sogg, verbo, ogg:
     (string-append (add-art sogg) " " (declina verbo sogg) " " (add-art ogg))
     )
   )
-
-
-; Test:
-
-(frase "gatto" "cacciare" "topi") ; -> "il gatto caccia i topi"
-(frase "mucca" "mangiare" "fieno") ; -> "la mucca mangia il fieno"
-(frase "sorelle" "leggere" "novella") ; -> "le sorelle leggono la novella"
-(frase "bambini" "amare" "favole") ; -> "i bambini amano le favole"
-(frase "musicisti" "suonare" "pianoforti") ; -> "i musicisti suonano i pianoforti"
-(frase "cuoco" "friggere" "patate") ; -> "il cuoco frigge le patate"
-(frase "camerieri" "servire" "clienti") ; -> "i camerieri servono i clienti"
-(frase "mamma" "chiamare" "figlie") ; -> "la mamma chiama le figlie"
